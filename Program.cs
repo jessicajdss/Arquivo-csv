@@ -11,22 +11,28 @@ namespace arquivocsv
             int idade;
 
             Console.WriteLine("Informe o seu nome: ");
-            nome = Console.ReadLine().ToLower();
+            nome = Console.ReadLine();
 
             Console.WriteLine("Informe o seu email: ");
-            email = Console.ReadLine().ToLower();
+            email = Console.ReadLine();
 
             Console.WriteLine("Informe a sua idade: ");
             idade = Int16.Parse(Console.ReadLine());
 
-            //usar crtl e . para achar a biblioteca do comando caso você não saiba;
-            // true adiciona as linhas no arquivo já existente, sobrescreve.
-            StreamWriter arquivo = new StreamWriter("dados.csv", true);
-            //if (arquivo.)
-            arquivo.WriteLine(nome+";"+email+";"+idade+";"+DateTime.Now.ToShortDateString());
-            
-            
-            arquivo.Close();
+            FileInfo fi = new FileInfo("dados_cabecalho.csv");
+            StreamWriter arquivo;
+            if (fi.Exists){
+                arquivo = new StreamWriter("dados_cabecalho.csv",true);
+                arquivo.WriteLine(nome+";"+email+";"+idade+";"+DateTime.Now.ToShortDateString()); 
+
+            }
+            else{
+               arquivo = new StreamWriter("dados_cabecalho.csv",true);
+               arquivo.WriteLine("Nome;Email;Idade;Data de Cadastro");  
+               arquivo.WriteLine(nome+";"+email+";"+idade+";"+DateTime.Now.ToShortDateString()); 
+            }    
+            arquivo.Close();  
+
 
 
 
